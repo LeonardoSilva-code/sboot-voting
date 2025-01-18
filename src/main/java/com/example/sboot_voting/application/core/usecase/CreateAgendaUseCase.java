@@ -2,13 +2,13 @@ package com.example.sboot_voting.application.core.usecase;
 
 import com.example.sboot_voting.application.core.domain.Agenda;
 import com.example.sboot_voting.application.ports.in.CreateAgendaInputPort;
-import com.example.sboot_voting.application.ports.out.SaveAgendaOutputPort;
+import com.example.sboot_voting.application.ports.out.CreateAgendaOutputPort;
 
 public class CreateAgendaUseCase implements CreateAgendaInputPort {
 
-    private final SaveAgendaOutputPort saveAgendaOutputPort;
+    private final CreateAgendaOutputPort saveAgendaOutputPort;
 
-    public CreateAgendaUseCase(SaveAgendaOutputPort saveAgendaOutputPort) {
+    public CreateAgendaUseCase(CreateAgendaOutputPort saveAgendaOutputPort) {
         this.saveAgendaOutputPort = saveAgendaOutputPort;
     }
 
