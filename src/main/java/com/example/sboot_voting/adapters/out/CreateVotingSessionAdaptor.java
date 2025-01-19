@@ -6,7 +6,9 @@ import com.example.sboot_voting.adapters.out.repository.VotingSessionRepositry;
 import com.example.sboot_voting.application.core.domain.VotingSession;
 import com.example.sboot_voting.application.ports.out.CreateVotingSessionOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CreateVotingSessionAdaptor implements CreateVotingSessionOutputPort {
 
     @Autowired

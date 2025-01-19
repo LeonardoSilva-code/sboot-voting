@@ -5,7 +5,10 @@ import java.util.UUID;
 
 public class VotingSession {
 
-    public VotingSession(){}
+    public VotingSession(){
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 
     public VotingSession(UUID id, boolean isOpen, LocalDateTime startDate, LocalDateTime endDate, UUID agendaId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;

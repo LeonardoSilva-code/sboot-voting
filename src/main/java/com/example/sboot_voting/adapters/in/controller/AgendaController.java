@@ -25,8 +25,8 @@ public class AgendaController {
     private AgendaMapper mapper;
 
     @PostMapping("")
-    AgendaResponseDTO create(@RequestBody AgendaRequestDTO input){
-        Agenda agenda = mapper.toAgenda(input);
+    AgendaResponseDTO create(@RequestBody AgendaRequestDTO request){
+        Agenda agenda = mapper.toAgenda(request);
         Agenda agendaDb = createAgendaInputPort.execute(agenda);
         return this.mapper.toCreateAgendaResponseDTO(agendaDb);
     }
