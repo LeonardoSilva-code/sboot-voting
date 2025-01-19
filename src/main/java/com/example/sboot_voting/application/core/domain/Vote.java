@@ -5,7 +5,10 @@ import java.util.UUID;
 
 public class Vote {
 
-    public Vote() {}
+    public Vote() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 
     public Vote(UUID id, UUID sessionId, VoteOption vote, String associateCpf, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
