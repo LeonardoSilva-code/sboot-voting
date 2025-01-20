@@ -8,7 +8,6 @@ import java.util.UUID;
 @Data
 public class VotingSessionResponseDTO {
     private UUID id;
-    private boolean isOpen;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private UUID agendaId;

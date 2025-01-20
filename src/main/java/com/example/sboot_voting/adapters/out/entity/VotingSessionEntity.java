@@ -17,8 +17,6 @@ public class VotingSessionEntity {
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "is_open")
-    private boolean isOpen;
     @Column(name = "start_date")
     private LocalDateTime startDate;
     @Column(name = "end_date")

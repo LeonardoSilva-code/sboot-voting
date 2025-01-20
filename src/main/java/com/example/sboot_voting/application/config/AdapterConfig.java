@@ -1,13 +1,7 @@
 package com.example.sboot_voting.application.config;
 
-import com.example.sboot_voting.application.core.usecase.CreateAgendaUseCase;
-import com.example.sboot_voting.application.core.usecase.CreateVoteUseCase;
-import com.example.sboot_voting.application.core.usecase.CreateVotingSessionUseCase;
-import com.example.sboot_voting.application.core.usecase.GetAgendaByIdUseCase;
-import com.example.sboot_voting.application.ports.out.CreateVoteOutputPort;
-import com.example.sboot_voting.application.ports.out.CreateVotingSessionOutputPort;
-import com.example.sboot_voting.application.ports.out.GetAgendaByIdOutputPort;
-import com.example.sboot_voting.application.ports.out.CreateAgendaOutputPort;
+import com.example.sboot_voting.application.core.usecase.*;
+import com.example.sboot_voting.application.ports.out.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,13 +19,23 @@ public class AdapterConfig {
     }
 
     @Bean
-    CreateVotingSessionUseCase createVotingSessionUseCase(CreateVotingSessionOutputPort createVotingSessionOutputPort){
-        return new CreateVotingSessionUseCase(createVotingSessionOutputPort);
+    CreateVotingSessionUseCase createVotingSessionUseCase(CreateVotingSessionOutputPort createVotingSessionOutputPort, GetAgendaByIdOutputPort getAgendaByIdOutputPort){
+        return new CreateVotingSessionUseCase(createVotingSessionOutputPort, getAgendaByIdOutputPort);
     }
 
     @Bean
-    CreateVoteUseCase createVoteUseCase(CreateVoteOutputPort createVoteOutputPort){
-        return new CreateVoteUseCase(createVoteOutputPort);
+    CreateVoteUseCase createVoteUseCase(CreateVoteOutputPort createVoteOutputPort, GetVotingSessionByIdOutputPort getVotingSessionByIdOutputPort, GetVoteBySessionIdAndAssociateCpfOutputPort getVoteBySessionIdAndAssociateCpfOutputPort){
+        return new CreateVoteUseCase(createVoteOutputPort, getVotingSessionByIdOutputPort, getVoteBySessionIdAndAssociateCpfOutputPort);
+    }
+
+    @Bean
+    GetVotingSessionByIdUseCase getVotingSessionByIdUseCase(GetVotingSessionByIdOutputPort getVotingSessionByIdOutputPort){
+        return new GetVotingSessionByIdUseCase(getVotingSessionByIdOutputPort);
+    }
+
+    @Bean
+    GetVotingSessionResultUseCase getVotingSessionResultUseCase(GetVotesBySessionIdOutputPort getVotesBySessionIdOutputPort){
+        return new GetVotingSessionResultUseCase(getVotesBySessionIdOutputPort);
     }
 
 }

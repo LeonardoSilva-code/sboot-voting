@@ -10,9 +10,8 @@ public class VotingSession {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public VotingSession(UUID id, boolean isOpen, LocalDateTime startDate, LocalDateTime endDate, UUID agendaId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public VotingSession(UUID id, LocalDateTime startDate, LocalDateTime endDate, UUID agendaId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.isOpen = isOpen;
         this.startDate = startDate;
         this.endDate = endDate;
         this.agendaId = agendaId;
@@ -21,7 +20,6 @@ public class VotingSession {
     }
 
     private UUID id;
-    private boolean isOpen;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private UUID agendaId;
@@ -34,14 +32,6 @@ public class VotingSession {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public boolean isOpen() {
-        return isOpen;
-    }
-
-    public void setOpen(boolean open) {
-        isOpen = open;
     }
 
     public LocalDateTime getStartDate() {

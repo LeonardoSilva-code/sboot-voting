@@ -16,7 +16,6 @@ public interface VotingSessionMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "endDate", ignore = true)
-    @Mapping(target = "open", constant = "true")
     @Mapping(target = "startDate", expression = "java(LocalDateTime.now())")
     VotingSession toVotingSession(VotingSessionRequestDTO votingSessionRequestDTO);
 
