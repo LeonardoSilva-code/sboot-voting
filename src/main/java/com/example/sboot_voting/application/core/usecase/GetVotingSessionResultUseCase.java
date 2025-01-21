@@ -1,12 +1,12 @@
 package com.example.sboot_voting.application.core.usecase;
 
-import com.example.sboot_voting.application.core.domain.Vote;
-import com.example.sboot_voting.application.core.domain.VoteFinalResult;
-import com.example.sboot_voting.application.core.domain.VoteOption;
-import com.example.sboot_voting.application.core.domain.VotingSessionResult;
+import com.example.sboot_voting.application.config.exceptions.VotingSessionNotFoundException;
+import com.example.sboot_voting.application.core.domain.*;
 import com.example.sboot_voting.application.ports.in.GetVotingSessionResultInputPort;
 import com.example.sboot_voting.application.ports.out.GetVotesBySessionIdOutputPort;
+import com.example.sboot_voting.application.ports.out.GetVotingSessionByIdOutputPort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,12 +14,16 @@ public class GetVotingSessionResultUseCase implements GetVotingSessionResultInpu
 
     public final GetVotesBySessionIdOutputPort getVotesBySessionIdOutputPort;
 
-    public GetVotingSessionResultUseCase(GetVotesBySessionIdOutputPort getVotesBySessionIdOutputPort) {
+    public final GetVotingSessionByIdOutputPort getVotingSessionByIdOutputPort;
+
+    public GetVotingSessionResultUseCase(GetVotesBySessionIdOutputPort getVotesBySessionIdOutputPort, GetVotingSessionByIdOutputPort getVotingSessionByIdOutputPort) {
         this.getVotesBySessionIdOutputPort = getVotesBySessionIdOutputPort;
+        this.getVotingSessionByIdOutputPort = getVotingSessionByIdOutputPort;
     }
 
     @Override
     public VotingSessionResult execute(UUID votingSessionId) {
+        boolean IsVotingSessionOpen = this.getIsVotingSessionOpen(votingSessionId);
         List<Vote> votesList = getVotesBySessionIdOutputPort.execute(votingSessionId);
         long totalVotes = votesList.size();
         long inFavor = votesList.stream()
@@ -36,9 +40,15 @@ public class GetVotingSessionResultUseCase implements GetVotingSessionResultInpu
         } else {
             result = VoteFinalResult.TIE;
         }
-        return new VotingSessionResult(votingSessionId, totalVotes, inFavor, against, result);
+        return new VotingSessionResult(votingSessionId, totalVotes, inFavor, against, result, IsVotingSessionOpen);
     }
 
-
+    private boolean getIsVotingSessionOpen(UUID votingSessionId){
+        VotingSession votingSession = this.getVotingSessionByIdOutputPort.execute(votingSessionId);
+        if(votingSession != null){
+            return LocalDateTime.now().isBefore(votingSession.getEndDate());
+        }
+        throw new VotingSessionNotFoundException("Voting session not found");
+    }
 
 }

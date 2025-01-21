@@ -1,5 +1,6 @@
 package com.example.sboot_voting.application.core.usecase;
 
+import com.example.sboot_voting.application.config.exceptions.AgendaNotFoundException;
 import com.example.sboot_voting.application.core.domain.Agenda;
 import com.example.sboot_voting.application.ports.in.GetAgendaByIdInputPort;
 import com.example.sboot_voting.application.ports.out.GetAgendaByIdOutputPort;
@@ -15,6 +16,10 @@ public class GetAgendaByIdUseCase implements GetAgendaByIdInputPort {
 
     @Override
     public Agenda execute(UUID id) {
-        return getAgendaByIdOutputPort.execute(id);
+        Agenda agenda = getAgendaByIdOutputPort.execute(id);
+        if(agenda == null){
+            throw new AgendaNotFoundException("Agenda not found");
+        }
+        return agenda;
     }
 }

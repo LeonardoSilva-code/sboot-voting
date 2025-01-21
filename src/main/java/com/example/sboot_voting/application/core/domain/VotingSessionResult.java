@@ -7,19 +7,29 @@ public class VotingSessionResult {
     public VotingSessionResult() {
     }
 
-    public VotingSessionResult(UUID votingSessionId, Long totalVotes, Long inFavor, Long agaist, VoteFinalResult result) {
+    public VotingSessionResult(UUID votingSessionId, Long totalVotes, Long inFavor, Long agaist, VoteFinalResult result, boolean isOpen) {
         this.votingSessionId = votingSessionId;
         this.totalVotes = totalVotes;
         this.inFavor = inFavor;
         this.agaist = agaist;
         this.result = result;
+        this.isOpen = isOpen;
     }
 
     private UUID votingSessionId;
     private Long totalVotes;
     private Long inFavor;
     private Long agaist;
+    private boolean isOpen;
     private VoteFinalResult result;
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
 
     public UUID getVotingSessionId() {
         return votingSessionId;

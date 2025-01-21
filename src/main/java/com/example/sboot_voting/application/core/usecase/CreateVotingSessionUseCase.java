@@ -1,5 +1,6 @@
 package com.example.sboot_voting.application.core.usecase;
 
+import com.example.sboot_voting.application.config.exceptions.AgendaNotFoundException;
 import com.example.sboot_voting.application.core.domain.Agenda;
 import com.example.sboot_voting.application.core.domain.VotingSession;
 import com.example.sboot_voting.application.ports.in.CreateVotingSessionInputPort;
@@ -35,7 +36,7 @@ public class CreateVotingSessionUseCase implements CreateVotingSessionInputPort 
     private void assertAgenda(UUID id){
         Agenda agenda = this.getAgendaByIdOutputPort.execute(id);
         if(agenda == null){
-           throw new RuntimeException("Agenda does not exist") ;
+            throw new AgendaNotFoundException("Agenda not found");
         }
     }
 }

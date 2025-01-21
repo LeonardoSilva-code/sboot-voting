@@ -34,8 +34,8 @@ public class AdapterConfig {
     }
 
     @Bean
-    GetVotingSessionResultUseCase getVotingSessionResultUseCase(GetVotesBySessionIdOutputPort getVotesBySessionIdOutputPort){
-        return new GetVotingSessionResultUseCase(getVotesBySessionIdOutputPort);
+    GetVotingSessionResultUseCase getVotingSessionResultUseCase(GetVotesBySessionIdOutputPort getVotesBySessionIdOutputPort, GetVotingSessionByIdOutputPort getVotingSessionByIdOutputPort){
+        return new GetVotingSessionResultUseCase(getVotesBySessionIdOutputPort, getVotingSessionByIdOutputPort);
     }
 
 }
