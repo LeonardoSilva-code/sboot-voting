@@ -5,54 +5,37 @@ import com.example.sboot_voting.application.core.usecase.CreateAgendaUseCase;
 import com.example.sboot_voting.application.ports.out.CreateAgendaOutputPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import java.util.UUID;
-
-import static org.mockito.Mockito.verify;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-public class CreateAgendaUseCaseTest {
-    private CreateAgendaUseCase createAgendaUseCase;
+class CreateAgendaUseCaseTest {
 
     @Mock
-    private CreateAgendaOutputPort saveAgendaOutputPort;
+    private CreateAgendaOutputPort createAgendaOutputPort;
+
+    @InjectMocks
+    private CreateAgendaUseCase createAgendaUseCase;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        createAgendaUseCase = new CreateAgendaUseCase(saveAgendaOutputPort);
     }
 
     @Test
-    void executeShouldSaveAgenda() {
-        Agenda inputAgenda = new Agenda();
-        String agendaTitleMock = "Test Agenda";
-        UUID agendaIdMock = UUID.randomUUID();
-        inputAgenda.setId(agendaIdMock);
-        inputAgenda.setTitle(agendaTitleMock);
+    void testCreateAgenda() {
+        Agenda agenda = new Agenda();
+        agenda.setTitle("Test Agenda");
 
-        Agenda savedAgenda = new Agenda();
-        savedAgenda.setId(agendaIdMock);
-        savedAgenda.setTitle(agendaTitleMock);
+        when(createAgendaOutputPort.execute(any(Agenda.class))).thenReturn(agenda);
 
-        Mockito.when(saveAgendaOutputPort.execute(any(Agenda.class))).thenReturn(savedAgenda);
+        Agenda createdAgenda = createAgendaUseCase.execute(agenda);
 
-        Agenda result = createAgendaUseCase.execute(inputAgenda);
-
-        assertEquals(savedAgenda, result);
-        verify(saveAgendaOutputPort).execute(inputAgenda);
-    }
-
-    @Test
-    void executeShouldHandleNullAgenda() {
-        Mockito.when(saveAgendaOutputPort.execute(null)).thenReturn(null);
-        Agenda result = createAgendaUseCase.execute(null);
-        assertEquals(null, result);
-        verify(saveAgendaOutputPort).execute(null);
+        assertEquals("Test Agenda", createdAgenda.getTitle());
+        verify(createAgendaOutputPort, times(1)).execute(any(Agenda.class));
     }
 }

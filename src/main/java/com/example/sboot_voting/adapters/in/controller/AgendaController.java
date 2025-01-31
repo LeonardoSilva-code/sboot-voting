@@ -34,7 +34,7 @@ public class AgendaController {
 
     @PostMapping("")
     @Operation(summary = "Create a new agenda", description = "Registers a new agenda")
-    AgendaResponseDTO create(@Valid @RequestBody AgendaRequestDTO request){
+    public AgendaResponseDTO create(@Valid @RequestBody AgendaRequestDTO request){
         logger.info("Received request to create a new agenda: {}", request);
 
         Agenda agenda = mapper.toAgenda(request);
@@ -48,7 +48,7 @@ public class AgendaController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a agenda", description = "Get a agenda by id")
-    AgendaResponseDTO getById(@PathVariable("id") UUID id){
+    public AgendaResponseDTO getById(@PathVariable("id") UUID id){
         logger.info("Received request to get agenda by ID: {}", id);
 
         Agenda agenda = this.getAgendaByIdInputPort.execute(id);
