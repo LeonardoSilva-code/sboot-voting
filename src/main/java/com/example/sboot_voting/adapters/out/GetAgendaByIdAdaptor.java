@@ -23,7 +23,6 @@ public class GetAgendaByIdAdaptor implements GetAgendaByIdOutputPort {
     @Override
     public Agenda execute(UUID id) {
        Optional<AgendaEntity> agenda = this.agendaRepository.findById(id);
-        //TODO create exception
         return agenda.map(agendaEntity -> this.agendaEntityMapper.toAgenda(agendaEntity)).orElse(null);
     }
 
