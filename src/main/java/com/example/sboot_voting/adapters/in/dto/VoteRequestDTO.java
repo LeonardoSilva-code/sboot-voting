@@ -11,7 +11,7 @@ import java.util.UUID;
 public class VoteRequestDTO {
     @NotNull(message = "sessionId cannot be null")
     private UUID sessionId;
-    @NotBlank(message = "sessionId cannot be blank")
+    @NotNull(message = "sessionId cannot be null")
     private VoteOption vote;
     @NotNull(message = "associateCpf cannot be null")
     private String associateCpf;

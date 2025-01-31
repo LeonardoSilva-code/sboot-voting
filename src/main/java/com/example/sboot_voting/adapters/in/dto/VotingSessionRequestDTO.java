@@ -10,6 +10,6 @@ import java.util.UUID;
 public class VotingSessionRequestDTO {
     @NotNull(message = "agendaId cannot be null")
     private UUID agendaId;
-    @NotBlank(message = "endTimeInMinutes cannot be blank")
+    @NotNull(message = "endTimeInMinutes cannot be null")
     private Long endTimeInMinutes;
 }

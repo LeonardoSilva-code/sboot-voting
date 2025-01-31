@@ -1,9 +1,6 @@
 package com.example.sboot_voting.application.config;
 
-import com.example.sboot_voting.application.config.exceptions.AgendaNotFoundException;
-import com.example.sboot_voting.application.config.exceptions.AssociateAlreadyVotedException;
-import com.example.sboot_voting.application.config.exceptions.VotingSessionIsClosedException;
-import com.example.sboot_voting.application.config.exceptions.VotingSessionNotFoundException;
+import com.example.sboot_voting.application.config.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -35,6 +32,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AssociateAlreadyVotedException.class)
     public ResponseEntity<String> handleAssociateAlreadyVotedException(AssociateAlreadyVotedException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(GenericException.class)
+    public ResponseEntity<String> handleGenericException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
