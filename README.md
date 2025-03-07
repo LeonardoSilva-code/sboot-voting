@@ -98,7 +98,6 @@ src
 │   │   ├── application
 │   │   │   ├── config                # Configurações e exceções personalizadas
 │   │   │   ├── core                  # Lógica de domínio e casos de uso
-│   │   │   ├── domain                # Entidades principais
 │   │   │   ├── ports                 # Interfaces para entrada/saída
 │   │   └── adapters                  # Implementações das portas por adaptadores
 |   |       ├── in                    # Adaptadores de entrada (controllers)
